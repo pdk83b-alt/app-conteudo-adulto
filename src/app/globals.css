@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-black text-white font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .creator-card {
+    @apply bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all duration-300 cursor-pointer transform hover:scale-105;
+  }
+  
+  .nav-button {
+    @apply flex flex-col items-center space-y-1 p-2 transition-colors duration-200;
+  }
+  
+  .nav-button.active {
+    @apply text-orange-500;
+  }
+  
+  .nav-button:not(.active) {
+    @apply text-gray-400 hover:text-gray-300;
+  }
+  
+  .gradient-banner {
+    @apply bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-6;
+  }
+  
+  .chat-item {
+    @apply bg-gray-900 rounded-lg p-4 hover:bg-gray-800 transition-colors cursor-pointer;
+  }
+  
+  .toggle-switch {
+    @apply w-12 h-6 rounded-full transition-colors duration-200;
+  }
+  
+  .toggle-switch.active {
+    @apply bg-orange-500;
+  }
+  
+  .toggle-switch:not(.active) {
+    @apply bg-gray-600;
+  }
+  
+  .toggle-knob {
+    @apply w-5 h-5 bg-white rounded-full transition-transform duration-200;
+  }
+  
+  .toggle-knob.active {
+    @apply translate-x-6;
+  }
+  
+  .toggle-knob:not(.active) {
+    @apply translate-x-1;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Age verification modal styles */
+.age-verification-backdrop {
+  @apply fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50;
+}
+
+.age-verification-modal {
+  @apply bg-gray-900 rounded-lg p-8 max-w-md w-full mx-4 text-center animate-fade-in;
+}
+
+/* Responsive design improvements */
+@media (max-width: 640px) {
+  .creator-card {
+    @apply transform-none hover:scale-100;
+  }
+  
+  .gradient-banner {
+    @apply p-4;
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  body {
+    @apply bg-black text-white;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .nav-button.active {
+    @apply text-orange-400 font-bold;
+  }
+  
+  .toggle-switch.active {
+    @apply bg-orange-400;
+  }
+}
