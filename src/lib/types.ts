@@ -1,63 +1,81 @@
-export interface Creator {
-  id: string
-  name: string
-  username: string
-  avatar: string
-  isOnline: boolean
-  subscribers: number
-  category: 'Premium' | 'VIP' | 'Exclusive'
-  description?: string
-  price?: number
-  rating?: number
-}
-
-export interface ChatMessage {
-  id: string
-  senderId: string
-  receiverId: string
-  content: string
-  timestamp: Date
-  isRead: boolean
-  type: 'text' | 'image' | 'video'
-}
-
-export interface Conversation {
-  id: string
-  creatorId: string
-  lastMessage?: ChatMessage
-  unreadCount: number
-  isActive: boolean
-}
-
 export interface User {
   id: string
   username: string
+  displayName: string
+  avatar?: string
+  isVerified: boolean
+  isAnonymous: boolean
+  bio?: string
+  followers: number
+  following: number
+  totalEarnings?: number
+  subscriptionPrice?: number
+}
+
+export interface Post {
+  id: string
+  userId: string
+  username: string
+  displayName: string
+  avatar?: string
+  isVerified: boolean
+  isAnonymous: boolean
+  content: {
+    type: 'image' | 'video' | 'text'
+    url?: string
+    thumbnail?: string
+    text?: string
+  }
+  likes: number
+  comments: number
+  shares: number
+  timestamp: string
+  price?: number
+  isLocked: boolean
+  tags?: string[]
+  isNSFW: boolean
+}
+
+export interface Comment {
+  id: string
+  postId: string
+  userId: string
+  username: string
+  displayName: string
   avatar?: string
   isAnonymous: boolean
-  subscriptions: string[]
-  preferences: {
-    darkMode: boolean
-    showOnlineOnly: boolean
-    notifications: boolean
-  }
+  content: string
+  timestamp: string
+  likes: number
 }
 
-export interface Subscription {
+export interface Transaction {
   id: string
-  creatorId: string
   userId: string
-  startDate: Date
-  endDate: Date
-  isActive: boolean
-  price: number
+  postId?: string
+  type: 'purchase' | 'subscription' | 'tip' | 'withdrawal'
+  amount: number
+  status: 'pending' | 'completed' | 'failed'
+  timestamp: string
+  description: string
 }
 
-export type TabType = 'home' | 'feed' | 'trending' | 'chat' | 'menu'
+export interface PrivacySettings {
+  showRealName: boolean
+  allowDirectMessages: boolean
+  showOnlineStatus: boolean
+  allowScreenshots: boolean
+  requirePaymentForMessages: boolean
+  blockedUsers: string[]
+}
 
-export interface AppState {
-  activeTab: TabType
-  user: User | null
-  isAgeVerified: boolean
-  searchQuery: string
-  showOnlineOnly: boolean
+export interface ContentFilter {
+  categories: string[]
+  priceRange: {
+    min: number
+    max: number
+  }
+  contentType: ('image' | 'video' | 'text')[]
+  verified: boolean
+  anonymous: boolean
 }
